@@ -7,11 +7,11 @@ def count_upper_chars(pwd):
     return sum(1 for c in pwd if c.isupper())
 
 
-def count_lower_chars(pwd):  # number of lower letters
+def count_lower_chars(pwd):
     return sum(1 for c in pwd if c.islower())
 
 
-def count_digits(pwd):  # number of digits
+def count_digits(pwd):
     return sum(1 for c in pwd if c.isdigit())
 
 
@@ -19,33 +19,21 @@ def count_symbols(pwd):  # number of special symbols
     return sum(1 for c in pwd if c in "$#@!%")
 
 
-def count_requirements(pwd):  # check if there are upper and lower letters, digits and symbols
+def count_requirements(pwd):
     return (count_upper_chars(pwd) > 0) + (count_lower_chars(pwd) > 0) + (count_digits(pwd) > 0) + (
         count_symbols(pwd) > 0)
 
 
 def repeating_upper_chars(pwd):  # calculate number of consecutive uppercase letters
-    dup = 0
-    for m in re.finditer(r'([A-Z])\1*', pwd):
-        if len(m.group(0)) > 1:
-            dup += len(m.group(0))
-    return dup
+    return sum(len(m.group(0)) for m in re.finditer(r'([A-Z])\1*', pwd) if len(m.group(0)) > 1)
 
 
 def repeating_lower_chars(pwd):  # calculate number of consecutive lowercase letters
-    dup = 0
-    for m in re.finditer(r'([a-z])\1*', pwd):
-        if len(m.group(0)) > 1:
-            dup += len(m.group(0))
-    return dup
+    return sum(len(m.group(0)) for m in re.finditer(r'([a-z])\1*', pwd) if len(m.group(0)) > 1)
 
 
 def repeating_digits(pwd):  # calculate number of consecutive digits
-    dup = 0
-    for m in re.finditer(r'([0-9])\1*', pwd):
-        if len(m.group(0)) > 1:
-            dup += len(m.group(0))
-    return dup
+    return sum(len(m.group(0)) for m in re.finditer(r'([0-9])\1*', pwd) if len(m.group(0)) > 1)
 
 
 def letters_only(pwd):

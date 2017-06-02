@@ -15,7 +15,7 @@ def count_digits(pwd):
     return sum(1 for c in pwd if c.isdigit())
 
 
-def count_symbols(pwd):  # number of special symbols
+def count_symbols(pwd):
     return sum(1 for c in pwd if c in "$#@!%")
 
 
@@ -24,26 +24,26 @@ def count_requirements(pwd):
         count_symbols(pwd) > 0)
 
 
-def repeating_upper_chars(pwd):  # calculate number of consecutive uppercase letters
+def repeating_upper_chars(pwd):
     return sum(len(m.group(0)) for m in re.finditer(r'([A-Z])\1*', pwd) if len(m.group(0)) > 1)
 
 
-def repeating_lower_chars(pwd):  # calculate number of consecutive lowercase letters
+def repeating_lower_chars(pwd):
     return sum(len(m.group(0)) for m in re.finditer(r'([a-z])\1*', pwd) if len(m.group(0)) > 1)
 
 
-def repeating_digits(pwd):  # calculate number of consecutive digits
+def repeating_digits(pwd):
     return sum(len(m.group(0)) for m in re.finditer(r'([0-9])\1*', pwd) if len(m.group(0)) > 1)
 
 
-def letters_only(pwd):
+def if_letters_only_return_length(pwd):
     if all(c.isalpha() for c in pwd):
         return len(pwd)
     else:
         return 0
 
 
-def digits_only(pwd):
+def if_digits_only_return_length(pwd):
     if all(c.isdigit() for c in pwd):
         return len(pwd)
     else:
@@ -61,8 +61,8 @@ def calculate_strength(password: "str") -> "int":
     strength += count_requirements(password) * 2
 
     # subtract weaknesses
-    strength -= letters_only(password)
-    strength -= digits_only(password)
+    strength -= if_letters_only_return_length(password)
+    strength -= if_digits_only_return_length(password)
     strength -= repeating_digits(password) * 2
     strength -= repeating_lower_chars(password) * 2
     strength -= repeating_upper_chars(password) * 2

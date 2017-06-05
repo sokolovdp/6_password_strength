@@ -1,6 +1,6 @@
 # Password Strength Calculator
 
-password_strength.py calculates the strength (1- weakest, 10- strong) 
+password_strength.py calculates the strength (1-weakest, 10-strongest) 
 
 # to run program:
 ```
